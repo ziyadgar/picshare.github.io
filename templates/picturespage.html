@@ -1,0 +1,150 @@
+{% extends "layout.html" %} {% block content %}
+
+<!-- ----------------------------Menu burger mobile------------------------- -->
+
+<nav id="headermobile">
+  <input type="checkbox" id="menu-toggle" />
+  <label id="trigger" for="menu-toggle"></label>
+  <label id="burger" for="menu-toggle"></label>
+
+  <ul id="menu">
+    <li><a href="/">Galerie</a></li>
+    <li><a href="/upload">Charger un fichier</a></li>
+  </ul>
+
+  <a href="/"><img src="../static/img/logo.png" /></a>
+</nav>
+
+<!-- ---------------------------- PICTURES PAGE ---------------------------- -->
+
+<!-- -------------------------------- IMAGE -------------------------------- -->
+
+<div class="picturespage">
+  <div class="pp-commentaire-image">
+    <div class="pp-block-image">
+      <div class="pp-image">
+        {% for image in all_images %}
+
+        <div class="contPictDesc">
+          <div class="link-image">
+            <img src="../static/img/uploads/{{ image[0] }}" />
+          </div>
+
+          <div><h3>{{ image[1] }}</h3></div>
+          <!-- titre de l'image -->
+
+          <div class="pp-description"><p>{{ image[2] }}</p></div>
+          <!-- description -->
+          <form method="post">
+            <input
+              type="checkbox"
+              name="confdelete"
+              id="confdelete"
+              value="delete"
+            />
+            <label for="confdelete">Acceptez la suppression</label>
+            <input type="submit" name="delete" id="delete" value="Supprimer" />
+          </form>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ------------------------ ZONE DES COMMENTAIRES ------------------------ -->
+
+    <!-- ---------------------- AFFICHER LES COMMENTAIRES ---------------------- -->
+
+    <div class="pp-block-commentaire">
+      <div>
+        <h3>C O M M E N T A I R E S</h3>
+        {% for key, value in my_dict.items()%} {% if int(value) != 0 %} {% if
+        int(key) == 1 %}
+        <p>&#x2605; {{ value }} votes</p>
+        {% elif int(key) == 2 %}
+        <p>&#x2605;&#x2605; {{ value }} votes</p>
+        {% elif int(key) == 3 %}
+        <p>&#x2605;&#x2605;&#x2605;{{ value }} votes</p>
+        {% elif int(key) == 4 %}
+        <p>&#x2605;&#x2605;&#x2605;&#x2605; {{ value }} votes</p>
+        {% elif int(key) == 5 %}
+        <p>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605; {{ value }} votes</p>
+        {% else %}
+        <p>aucun vote</p>
+        {% endif %} {% else %}
+        <p>aucun vote</p>
+        {% endif %} {% endfor %}
+        <hr />
+        {% for elem in my_list1 %}
+        <p><span class="pp-pseudo">{{ elem[0] }}</span> {{ elem[1] }}</p>
+        {% if elem[2] == 1 %}
+        <p>&#x2605;</p>
+        {% elif elem[2] == 2 %}
+        <p>&#x2605;&#x2605;</p>
+        {% elif elem[2] == 3 %}
+        <p>&#x2605;&#x2605;&#x2605;</p>
+        {% elif elem[2] == 4 %}
+        <p>&#x2605;&#x2605;&#x2605;&#x2605;</p>
+        {% elif elem[2] == 5 %}
+        <p>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</p>
+        {% else %}
+        <p>aucun vote</p>
+        {% endif %}
+        <hr />
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ----------------------- LAISSER UN COMMENTAIRE ------------------------ -->
+
+    <div class="pp-block-laisser-un-commentaire">
+      <form action="{{ url }}" method="POST" class="form-example">
+        <label for="pseudo">Pseudo :</label>
+
+        <input type="text" id="pseudo" name="pseudo" required />
+
+        <br />
+
+        <label for="commentary"></label>
+
+        <br />
+
+        <textarea
+          class="testcommentaire"
+          id="commentary"
+          name="commentary"
+          rows="5"
+          cols="30"
+        >
+        Commentez...</textarea
+        >
+
+        <br />
+
+        <input
+          class="rating"
+          id="rating"
+          type="range"
+          name="rangeInput"
+          step="1"
+          min="0"
+          max="5"
+          style="--value: 0"
+          value="0"
+          oninput="this.style.setProperty('--value', `${this.valueAsNumber}`);this.nextElementSibling.value = this.value;"
+          onchange="updateTextInput(this.value);"
+        />
+
+        <input type="text" id="textInput" value="0" name="rangeInput" />
+
+        <input class="publiez" type="submit" value="Publiez" />
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- ------------------------ FIN DE PICTURES PAGE ------------------------- -->
+
+{% block content_end_main %} {% endblock %}

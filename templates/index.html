@@ -1,0 +1,73 @@
+{% extends "layout.html" %} {% block content %}
+<nav id="headermobile">
+  <input type="checkbox" id="menu-toggle" />
+  <label id="trigger" for="menu-toggle"></label>
+  <label id="burger" for="menu-toggle"></label>
+  <ul id="menu">
+    <li><a href="/">Galerie</a></li>
+    <li><a href="/upload">Charger un fichier</a></li>
+    <li><hr /></li>
+    <li>Categories :</li>
+    {% if my_list3 != [] %}
+    <li>
+      <a class="btn" onclick="filterSelection('all')">Tous</a>
+    </li>
+    {% for element in my_list %}
+    <li>
+      <a class="btn" onclick="filterSelection('{{ element }}')"
+        >{{ element }}</a
+      >
+    </li>
+    {% endfor %} {% endif %}
+  </ul>
+  <a href="/"><img src="../static/img/logo.png" /></a>
+</nav>
+<div class="containerIndex">
+  <!--------------------- Section categories -------------------------->
+  <div class="menuFullscreen">
+    <div id="myBtnContainer">
+      {% if my_list3 != [] %}
+      <h3>Mes categories</h3>
+      <button class="btn" onclick="filterSelection('all')">Tous</button>
+      {% for element in my_list %}
+      <button class="btn" onclick="filterSelection('{{ element }}')">
+        {{ element }}
+      </button>
+      {% endfor %} {% endif %}
+    </div>
+    <h3 id="hashtag"># Les plus populaires</h3>
+  </div>
+  <!--------------------- Section gallery -------------------------->
+  <div class="container_index">
+    <h1>GALERIE</h1>
+    {% if my_list2 != [] %}
+    <div class="container_image">
+      {% for cat1, cat2, cat3, cat4 in zip(my_list2, my_list3, my_list4,
+      my_list5) %}
+      <figure class="filterDiv {{ cat1 }}">
+        <img
+          class="image"
+          src="../static/img/uploads/{{ cat2 }}"
+          alt="images"
+        />
+        <a href="/picturespage/{{ cat4 }}">
+          <figcaption>
+            <p>{{ cat3 }}</p>
+          </figcaption>
+        </a>
+      </figure>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="container_button">
+      <div class="enfant">
+        <h3>Votre galerie est vide</h3>
+        <button onclick="window.location.href='/upload'">
+          Ajoutez des photos
+        </button>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

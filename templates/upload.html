@@ -1,0 +1,44 @@
+{% extends "layout.html" %} 
+{% block content %}
+    <nav id="headermobile">
+        <input type="checkbox" id="menu-toggle" />
+        <label id="trigger" for="menu-toggle"></label>
+        <label id="burger" for="menu-toggle"></label>
+        <ul id="menu">
+        <li><a href="/">Galerie</a></li>
+        <li><a href="/upload">Charger un fichier</a></li>
+        </ul>
+        <a href="/"><img src="../static/img/logo.png" /></a>
+    </nav>
+    <div class="upload">
+        <h1>Charger une image</h1>
+        <form method=post enctype=multipart/form-data>
+            <input class="upload-tag" type=file name=file>
+            <input class="upload-tag" id="titre" type=text name=titre placeholder="Titre" required>
+            <textarea class="upload-tag" name=description placeholder="Description" maxlength="200"></textarea>
+            <label>
+                <input class="upload-tag" id="cat" list="categories" name="categorie" placeholder="Choisir une catégorie" /></label>
+                <datalist id="categories">
+                    <option value="People">
+                    <option value="Animal">
+                    <option value="Landscape">
+                    <option value="Humor">
+                    <option value="Nerd">
+                </datalist>
+            <div class="validate-button">
+                <input class="button" type=submit value="Charger">
+            </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for message in messages %}
+                        <div class="message_flash"><p>{{ message }}</p></div>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </form>
+        <p>Veuillez svp respecter le fait que c'est un projet d'étude, ne pas charger de photo obscène.</p>
+        <p>Merci de votre compréhension ziyad G.</p>
+    </div>
+{% endblock %}
