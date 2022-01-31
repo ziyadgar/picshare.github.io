@@ -155,7 +155,7 @@ def commentary(image_id):
     db = get_db()
     # ----------------------------------Partie(DELETE) modifié par Ziyad GARGOURI---------------------
     confdelete = request.form.to_dict("confdelete")
-    if confdelete != {}:
+    if confdelete == {"confdelete": "delete", "delete": "Supprimer"}:
         db.execute("PRAGMA foreign_keys=off")
         db.execute("""DELETE FROM `images` WHERE id=? """, [image_id,])
         db.execute("PRAGMA foreign_keys=on")
