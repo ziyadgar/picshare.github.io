@@ -12,8 +12,6 @@ Jinja2
 MarkupSafe
 platformdirs
 pycosat
-pywin32
 virtualenv
 Werkzeug
-wincertstore
 gunicorn
