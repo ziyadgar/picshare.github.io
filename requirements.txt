@@ -10,7 +10,6 @@ Flask-Uploads
 itsdangerous
 Jinja2
 MarkupSafe
-menuinst
 platformdirs
 pycosat
 pywin32
